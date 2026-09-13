@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de nomenclatura de pruebas</title>
+<style>
+  :root{
+    --tinta:#1c2a39;
+    --papel:#f7f6f3;
+    --tarjeta:#ffffff;
+    --linea:#e3e0d8;
+    --acento:#2f6f5e;
+    --acento-suave:#e6f0ec;
+    --alerta:#8a5a12;
+    --alerta-suave:#f7efdf;
+    --texto-2:#6b7280;
+    --aviso:#8a3a12;
+    --aviso-suave:#f7e6df;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+    background:var(--papel);color:var(--tinta);line-height:1.5;padding:28px 18px 60px;
+  }
+  .wrap{max-width:640px;margin:0 auto}
+  header{margin-bottom:22px}
+  .titulo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:600}
+  .titulo .marca{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:var(--acento);color:#fff;font-size:18px;flex-shrink:0}
+  .sub{color:var(--texto-2);font-size:14px;margin-top:6px}
+
+  .buscador{position:relative;margin:22px 0 6px}
+  .buscador svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--texto-2)}
+  #q{width:100%;height:52px;padding:0 16px 0 44px;font-size:17px;border:1.5px solid var(--linea);border-radius:12px;background:var(--tarjeta);color:var(--tinta);outline:none;transition:border-color .15s}
+  #q:focus{border-color:var(--acento)}
+  #q:disabled{background:#f0eee9;color:#9ca3af}
+  #q::placeholder{color:#9ca3af}
+  .conteo{font-size:13px;color:var(--texto-2);margin:12px 2px 14px}
+
+  .lista{display:flex;flex-direction:column;gap:12px}
+  .tarjeta{background:var(--tarjeta);border:1px solid var(--linea);border-left:4px solid var(--acento);border-radius:10px;padding:16px 18px}
+  .fila-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .nombre{font-size:17px;font-weight:600}
+  .codigo{font-size:12px;color:var(--texto-2);font-family:"Consolas",monospace;white-space:nowrap}
+  .etq{font-size:12px;color:var(--texto-2);margin:12px 0 5px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:13px;color:var(--tinta);background:var(--acento-suave);border-radius:20px;padding:3px 11px}
+  .meta{display:flex;align-items:center;gap:7px;margin-top:11px;font-size:13px;color:#4b5563}
+  .meta svg{flex-shrink:0;color:var(--acento)}
+  .nota{display:flex;align-items:flex-start;gap:7px;margin-top:10px;font-size:13px;color:var(--alerta);background:var(--alerta-suave);border-radius:8px;padding:8px 10px}
+  .nota svg{flex-shrink:0;margin-top:1px}
+
+  .vacio{text-align:center;color:var(--texto-2);padding:36px 20px;font-size:15px}
+  .vacio svg{color:#c7c3b8;margin-bottom:10px}
+
+  .aviso{background:var(--aviso-suave);border:1px solid #e6c9b8;border-radius:10px;padding:16px 18px;margin-bottom:18px;font-size:14px;color:var(--aviso)}
+  .aviso b{font-weight:600}
+  .aviso .btn{display:inline-flex;align-items:center;gap:7px;margin-top:12px;background:var(--acento);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer;font-family:inherit}
+  .aviso .btn:hover{background:#255a4c}
+  #fileInput{display:none}
+
+  footer{margin-top:30px;text-align:center;font-size:12px;color:#9ca3af}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="titulo">
+      <span class="marca">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6.5L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 9.5V3"/></svg>
+      </span>
+      Catálogo de nomenclatura de pruebas
+    </div>
+    <p class="sub">Escriba el nombre de la prueba como la conoce. El catálogo muestra el nombre estandarizado que debe usarse en la solicitud.</p>
+  </header>
+
+  <div id="aviso" class="aviso" style="display:none">
+    <b>No se pudo cargar el archivo de pruebas automáticamente.</b><br>
+    Esto ocurre cuando el navegador bloquea la lectura de archivos locales. Seleccione el archivo <b>pruebas.csv</b> para continuar.
+    <br>
+    <button class="btn" id="btnFile">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15h6"/></svg>
+      Seleccionar pruebas.csv
+    </button>
+    <input type="file" id="fileInput" accept=".csv">
+  </div>
+
+  <div class="buscador">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="q" type="text" placeholder="Cargando catálogo…" autocomplete="off" disabled>
+  </div>
+  <div class="conteo" id="conteo"></div>
+
+  <div class="lista" id="lista"></div>
+  <div class="vacio" id="vacio" style="display:none">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M8 11h6"/></svg>
+    <p>No se encontraron pruebas con ese término.<br>Revise la escritura o pruebe con otro nombre.</p>
+  </div>
+
+  <footer>Catálogo de consulta — Laboratorio Clínico · Datos en pruebas.csv</footer>
+</div>
+
+<script>
+/* ============================================================
+   ESTE CATÁLOGO LEE LOS DATOS DEL ARCHIVO  pruebas.csv
+   ------------------------------------------------------------
+   Para actualizar el catálogo NO se toca este archivo:
+   se edita  pruebas.csv  (se abre con Excel) y se guarda.
+   El CSV debe tener estas columnas, en este orden:
+     nombre , codigo , sinonimos , muestra , nota
+   - nombre    : nombre estandarizado (obligatorio)
+   - codigo    : código interno (puede quedar vacío)
+   - sinonimos : otras formas de escribirlo, separadas por " ; "
+                 ejemplo:  biometría ; hemograma ; CBC
+   - muestra   : tipo de muestra/tubo (puede quedar vacío)
+   - nota      : alerta o aclaración (puede quedar vacío)
+   Los dos archivos (este .html y pruebas.csv) deben estar
+   en la misma carpeta.
+   ============================================================ */
+
+const NOMBRE_CSV = "pruebas.csv";
+
+const lista = document.getElementById('lista');
+const vacio = document.getElementById('vacio');
+const conteo = document.getElementById('conteo');
+const q = document.getElementById('q');
+const aviso = document.getElementById('aviso');
+const btnFile = document.getElementById('btnFile');
+const fileInput = document.getElementById('fileInput');
+
+let PRUEBAS = [];
+
+function normal(s){ return (s||"").toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+function escapar(s){ return (s||"").replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* --- Parser CSV simple con soporte de comillas --- */
+function parseCSV(texto){
+  const filas = [];
+  let campo = "", fila = [], enComillas = false;
+  texto = texto.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  for(let i=0;i<texto.length;i++){
+    const c = texto[i];
+    if(enComillas){
+      if(c === '"'){
+        if(texto[i+1] === '"'){ campo += '"'; i++; }
+        else enComillas = false;
+      } else campo += c;
+    } else {
+      if(c === '"') enComillas = true;
+      else if(c === ',') { fila.push(campo); campo=""; }
+      else if(c === '\n'){ fila.push(campo); filas.push(fila); fila=[]; campo=""; }
+      else campo += c;
+    }
+  }
+  if(campo.length>0 || fila.length>0){ fila.push(campo); filas.push(fila); }
+  return filas;
+}
+
+function construirPruebas(filas){
+  if(!filas.length) return [];
+  const cab = filas[0].map(h=>normal(h.trim()));
+  const iN = cab.indexOf('nombre');
+  const iC = cab.indexOf('codigo');
+  const iS = cab.indexOf('sinonimos');
+  const iM = cab.indexOf('muestra');
+  const iNo = cab.indexOf('nota');
+  const out = [];
+  for(let r=1;r<filas.length;r++){
+    const f = filas[r];
+    if(!f || f.every(x=>!x || !x.trim())) continue;
+    const nombre = (iN>=0 ? f[iN] : "").trim();
+    if(!nombre) continue;
+    const sinRaw = (iS>=0 ? f[iS] : "") || "";
+    const sinonimos = sinRaw.split(/[;|]/).map(s=>s.trim()).filter(Boolean);
+    out.push({
+      nombre,
+      codigo: (iC>=0 ? f[iC] : "").trim(),
+      sinonimos,
+      muestra: (iM>=0 ? f[iM] : "").trim(),
+      nota: (iNo>=0 ? f[iNo] : "").trim()
+    });
+  }
+  return out;
+}
+
+function iconoMuestra(){ return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6.5L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 9.5V3"/></svg>'; }
+function iconoNota(){ return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>'; }
+
+function tarjeta(p){
+  const chips = (p.sinonimos||[]).map(s=>'<span class="chip">'+escapar(s)+'</span>').join('');
+  const bloqueChips = chips ? '<div class="etq">También se escribe como:</div><div class="chips">'+chips+'</div>' : '';
+  const bloqueMuestra = p.muestra ? '<div class="meta">'+iconoMuestra()+'<span>'+escapar(p.muestra)+'</span></div>' : '';
+  const bloqueNota = p.nota ? '<div class="nota">'+iconoNota()+'<span>'+escapar(p.nota)+'</span></div>' : '';
+  const codigo = p.codigo ? '<span class="codigo">'+escapar(p.codigo)+'</span>' : '';
+  return '<div class="tarjeta"><div class="fila-top"><span class="nombre">'+escapar(p.nombre)+'</span>'+codigo+'</div>'+bloqueChips+bloqueMuestra+bloqueNota+'</div>';
+}
+
+function coincide(p, term){
+  if(!term) return true;
+  if(normal(p.nombre).includes(term)) return true;
+  if(normal(p.codigo).includes(term)) return true;
+  return (p.sinonimos||[]).some(s=>normal(s).includes(term));
+}
+
+function render(){
+  const term = normal(q.value.trim());
+  const res = PRUEBAS.filter(p=>coincide(p,term)).sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
+  if(res.length===0){
+    lista.innerHTML=''; vacio.style.display='block'; conteo.textContent=''; return;
+  }
+  vacio.style.display='none';
+  conteo.textContent = res.length + (res.length===1?' prueba':' pruebas') + (term ? ' encontradas' : ' en el catálogo');
+  lista.innerHTML = res.map(tarjeta).join('');
+}
+
+function activar(){
+  q.disabled = false;
+  q.placeholder = "Ej.: biometría, protrombina, tiroides…";
+  aviso.style.display = 'none';
+  render();
+  q.focus();
+}
+
+function cargarTexto(texto){
+  PRUEBAS = construirPruebas(parseCSV(texto));
+  if(PRUEBAS.length){ activar(); }
+  else { mostrarAviso(); }
+}
+
+function mostrarAviso(){
+  aviso.style.display='block';
+  q.placeholder = "Seleccione pruebas.csv para comenzar";
+}
+
+/* Intento de carga automática del CSV que está junto al HTML */
+fetch(NOMBRE_CSV)
+  .then(r=>{ if(!r.ok) throw new Error('no'); return r.text(); })
+  .then(t=>cargarTexto(t))
+  .catch(()=>mostrarAviso());
+
+/* Respaldo: cargar el CSV manualmente */
+btnFile.addEventListener('click', ()=>fileInput.click());
+fileInput.addEventListener('change', e=>{
+  const f = e.target.files[0];
+  if(!f) return;
+  const lector = new FileReader();
+  lector.onload = ev=>cargarTexto(ev.target.result);
+  lector.readAsText(f, 'UTF-8');
+});
+
+q.addEventListener('input', render);
+</script>
+</body>
+</html>
