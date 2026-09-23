@@ -1,5 +1,5 @@
 nombre,codigo,sinonimos,muestra,nota
 Hemograma completo,AB12,biometría hemática ; hemograma ; CBC ; cuadro hemático,,
-Tiempo de protrombina,AC13,Prueba 3,AD14,protrombina ; TP ; INR,,
+Tiempo de protrombina,AC13, protrombina ; TP ; INR,,
 Tiempo de tromboplastina parcial,AD14,TTP ; TTPa ; tiempo parcial,,
 Tirotropina,AE15,TSH ; hormona tiroidea ; tiroides,Suero (tubo rojo), No confundir con hemoglobina
