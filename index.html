@@ -6,72 +6,119 @@
 <title>Catálogo de nomenclatura de pruebas</title>
 <style>
   :root{
-    --tinta:#1c2a39;
-    --papel:#f7f6f3;
+    --azul:#2a7de1;
+    --azul-osc:#1b4f8a;
+    --amarillo:#ffc43d;
+    --coral:#ff7a66;
+    --menta:#4ec0a8;
+    --menta-suave:#e4f6f1;
+    --azul-suave:#eaf2fe;
+    --amarillo-suave:#fff5dc;
+    --coral-suave:#ffe9e4;
+    --tinta:#33415c;
+    --tinta-2:#64748b;
+    --papel:#fbfcfe;
     --tarjeta:#ffffff;
-    --linea:#e3e0d8;
-    --acento:#2f6f5e;
-    --acento-suave:#e6f0ec;
-    --alerta:#8a5a12;
-    --alerta-suave:#f7efdf;
-    --texto-2:#6b7280;
-    --aviso:#8a3a12;
-    --aviso-suave:#f7e6df;
+    --linea:#e6ecf5;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{
     font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
-    background:var(--papel);color:var(--tinta);line-height:1.5;padding:28px 18px 60px;
+    background:var(--papel);
+    color:var(--tinta);
+    line-height:1.5;
+    padding:26px 18px 60px;
   }
-  .wrap{max-width:640px;margin:0 auto}
-  header{margin-bottom:22px}
-  .titulo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:600}
-  .titulo .marca{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:var(--acento);color:#fff;font-size:18px;flex-shrink:0}
-  .sub{color:var(--texto-2);font-size:14px;margin-top:6px}
+  /* burbujas decorativas de fondo */
+  .deco{position:fixed;border-radius:50%;z-index:0;opacity:.5;pointer-events:none}
+  .d1{width:150px;height:150px;background:var(--amarillo-suave);top:-40px;right:-30px}
+  .d2{width:110px;height:110px;background:var(--coral-suave);top:120px;left:-50px}
+  .d3{width:90px;height:90px;background:var(--menta-suave);bottom:40px;right:-20px}
 
-  .buscador{position:relative;margin:22px 0 6px}
-  .buscador svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--texto-2)}
-  #q{width:100%;height:52px;padding:0 16px 0 44px;font-size:17px;border:1.5px solid var(--linea);border-radius:12px;background:var(--tarjeta);color:var(--tinta);outline:none;transition:border-color .15s}
-  #q:focus{border-color:var(--acento)}
-  #q:disabled{background:#f0eee9;color:#9ca3af}
-  #q::placeholder{color:#9ca3af}
-  .conteo{font-size:13px;color:var(--texto-2);margin:12px 2px 14px}
+  .wrap{max-width:620px;margin:0 auto;position:relative;z-index:1}
 
-  .lista{display:flex;flex-direction:column;gap:12px}
-  .tarjeta{background:var(--tarjeta);border:1px solid var(--linea);border-left:4px solid var(--acento);border-radius:10px;padding:16px 18px}
+  header{text-align:center;margin-bottom:20px}
+  .pastilla{
+    display:inline-block;background:var(--azul);color:#fff;
+    font-size:13px;font-weight:600;letter-spacing:.5px;
+    padding:5px 16px;border-radius:30px;margin-bottom:12px;
+  }
+  .titulo{font-size:23px;font-weight:700;color:var(--azul-osc);line-height:1.25}
+  .sub{color:var(--tinta-2);font-size:14px;margin-top:8px;max-width:440px;margin-left:auto;margin-right:auto}
+
+  .buscador{position:relative;margin:22px 0 8px}
+  .buscador .lupa{
+    position:absolute;left:16px;top:50%;transform:translateY(-50%);
+    width:20px;height:20px;color:var(--azul)
+  }
+  #q{
+    width:100%;height:56px;padding:0 18px 0 46px;font-size:16px;
+    border:2px solid var(--linea);border-radius:16px;background:var(--tarjeta);
+    color:var(--tinta);outline:none;transition:border-color .15s, box-shadow .15s;
+  }
+  #q:focus{border-color:var(--azul);box-shadow:0 0 0 4px var(--azul-suave)}
+  #q:disabled{background:#f1f4f9;color:#9aa7ba}
+  #q::placeholder{color:#9aa7ba}
+
+  .conteo{font-size:13px;color:var(--tinta-2);margin:14px 4px 16px;font-weight:500}
+
+  .lista{display:flex;flex-direction:column;gap:14px}
+  .tarjeta{
+    background:var(--tarjeta);border:1px solid var(--linea);
+    border-radius:18px;padding:18px 20px;
+    box-shadow:0 2px 10px rgba(42,125,225,.05);
+    border-top:5px solid var(--azul);
+  }
   .fila-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-  .nombre{font-size:17px;font-weight:600}
-  .codigo{font-size:12px;color:var(--texto-2);font-family:"Consolas",monospace;white-space:nowrap}
-  .etq{font-size:12px;color:var(--texto-2);margin:12px 0 5px}
-  .chips{display:flex;flex-wrap:wrap;gap:6px}
-  .chip{font-size:13px;color:var(--tinta);background:var(--acento-suave);border-radius:20px;padding:3px 11px}
-  .meta{display:flex;align-items:center;gap:7px;margin-top:11px;font-size:13px;color:#4b5563}
-  .meta svg{flex-shrink:0;color:var(--acento)}
-  .nota{display:flex;align-items:flex-start;gap:7px;margin-top:10px;font-size:13px;color:var(--alerta);background:var(--alerta-suave);border-radius:8px;padding:8px 10px}
-  .nota svg{flex-shrink:0;margin-top:1px}
+  .nombre{font-size:17px;font-weight:700;color:var(--azul-osc)}
+  .codigo{
+    font-size:12px;color:var(--azul-osc);background:var(--azul-suave);
+    border-radius:20px;padding:3px 10px;font-weight:600;white-space:nowrap;
+  }
+  .etq{font-size:12px;color:var(--tinta-2);margin:14px 0 6px;font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{
+    font-size:13px;color:var(--azul-osc);background:var(--menta-suave);
+    border-radius:20px;padding:4px 12px;font-weight:500;
+  }
+  .meta{display:flex;align-items:center;gap:8px;margin-top:13px;font-size:13px;color:var(--tinta)}
+  .meta .ic{width:17px;height:17px;color:var(--menta);flex-shrink:0}
+  .nota{
+    display:flex;align-items:flex-start;gap:8px;margin-top:12px;
+    font-size:13px;color:#9a5811;background:var(--amarillo-suave);
+    border-radius:12px;padding:10px 12px;
+  }
+  .nota .ic{width:17px;height:17px;flex-shrink:0;margin-top:1px;color:var(--amarillo)}
 
-  .vacio{text-align:center;color:var(--texto-2);padding:36px 20px;font-size:15px}
-  .vacio svg{color:#c7c3b8;margin-bottom:10px}
+  .vacio{text-align:center;color:var(--tinta-2);padding:40px 20px;font-size:15px}
+  .vacio .ic{width:40px;height:40px;color:#c7d3e5;margin-bottom:12px}
 
-  .aviso{background:var(--aviso-suave);border:1px solid #e6c9b8;border-radius:10px;padding:16px 18px;margin-bottom:18px;font-size:14px;color:var(--aviso)}
-  .aviso b{font-weight:600}
-  .aviso .btn{display:inline-flex;align-items:center;gap:7px;margin-top:12px;background:var(--acento);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer;font-family:inherit}
-  .aviso .btn:hover{background:#255a4c}
+  .aviso{
+    background:var(--coral-suave);border:1px solid #f7cabf;border-radius:16px;
+    padding:18px 20px;margin-bottom:20px;font-size:14px;color:#a3402e;
+  }
+  .aviso b{font-weight:700}
+  .aviso .btn{
+    display:inline-flex;align-items:center;gap:8px;margin-top:14px;
+    background:var(--coral);color:#fff;border:none;border-radius:12px;
+    padding:11px 18px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;
+  }
+  .aviso .btn:hover{background:#ef6a55}
   #fileInput{display:none}
 
-  footer{margin-top:30px;text-align:center;font-size:12px;color:#9ca3af}
+  footer{margin-top:34px;text-align:center;font-size:12px;color:#9aa7ba}
 </style>
 </head>
 <body>
+<div class="deco d1"></div>
+<div class="deco d2"></div>
+<div class="deco d3"></div>
+
 <div class="wrap">
   <header>
-    <div class="titulo">
-      <span class="marca">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6.5L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 9.5V3"/></svg>
-      </span>
-      Catálogo de nomenclatura de pruebas
-    </div>
-    <p class="sub">Escriba el nombre de la prueba como la conoce. El catálogo muestra el nombre estandarizado que debe usarse en la solicitud.</p>
+    <span class="pastilla">Laboratorio Clínico · HNN</span>
+    <div class="titulo">Catálogo de nomenclatura de pruebas</div>
+    <p class="sub">Escriba el nombre de la prueba como la conoce. El catálogo le muestra el nombre estandarizado que debe usar en la solicitud.</p>
   </header>
 
   <div id="aviso" class="aviso" style="display:none">
@@ -79,43 +126,36 @@
     Esto ocurre cuando el navegador bloquea la lectura de archivos locales. Seleccione el archivo <b>pruebas.csv</b> para continuar.
     <br>
     <button class="btn" id="btnFile">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15h6"/></svg>
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15h6"/></svg>
       Seleccionar pruebas.csv
     </button>
     <input type="file" id="fileInput" accept=".csv">
   </div>
 
   <div class="buscador">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <svg class="lupa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
     <input id="q" type="text" placeholder="Cargando catálogo…" autocomplete="off" disabled>
   </div>
   <div class="conteo" id="conteo"></div>
 
   <div class="lista" id="lista"></div>
   <div class="vacio" id="vacio" style="display:none">
-    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M8 11h6"/></svg>
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M8 11h6"/></svg>
     <p>No se encontraron pruebas con ese término.<br>Revise la escritura o pruebe con otro nombre.</p>
   </div>
 
-  <footer>Catálogo de consulta — Laboratorio Clínico · Datos en pruebas.csv</footer>
+  <footer>Catálogo de consulta · Los datos se mantienen en el archivo pruebas.csv</footer>
 </div>
 
 <script>
 /* ============================================================
    ESTE CATÁLOGO LEE LOS DATOS DEL ARCHIVO  pruebas.csv
-   ------------------------------------------------------------
    Para actualizar el catálogo NO se toca este archivo:
    se edita  pruebas.csv  (se abre con Excel) y se guarda.
-   El CSV debe tener estas columnas, en este orden:
+   Columnas, en este orden:
      nombre , codigo , sinonimos , muestra , nota
-   - nombre    : nombre estandarizado (obligatorio)
-   - codigo    : código interno (puede quedar vacío)
-   - sinonimos : otras formas de escribirlo, separadas por " ; "
-                 ejemplo:  biometría ; hemograma ; CBC
-   - muestra   : tipo de muestra/tubo (puede quedar vacío)
-   - nota      : alerta o aclaración (puede quedar vacío)
-   Los dos archivos (este .html y pruebas.csv) deben estar
-   en la misma carpeta.
+   Los sinónimos se separan con punto y coma ( ; ).
+   Los dos archivos deben estar en la misma carpeta.
    ============================================================ */
 
 const NOMBRE_CSV = "pruebas.csv";
@@ -130,125 +170,69 @@ const fileInput = document.getElementById('fileInput');
 
 let PRUEBAS = [];
 
-function normal(s){ return (s||"").toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+function normal(s){ return (s||"").toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
 function escapar(s){ return (s||"").replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-/* --- Parser CSV simple con soporte de comillas --- */
 function parseCSV(texto){
-  const filas = [];
-  let campo = "", fila = [], enComillas = false;
-  texto = texto.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  const filas=[]; let campo="",fila=[],enC=false;
+  texto=texto.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
   for(let i=0;i<texto.length;i++){
-    const c = texto[i];
-    if(enComillas){
-      if(c === '"'){
-        if(texto[i+1] === '"'){ campo += '"'; i++; }
-        else enComillas = false;
-      } else campo += c;
-    } else {
-      if(c === '"') enComillas = true;
-      else if(c === ',') { fila.push(campo); campo=""; }
-      else if(c === '\n'){ fila.push(campo); filas.push(fila); fila=[]; campo=""; }
-      else campo += c;
-    }
+    const c=texto[i];
+    if(enC){ if(c==='"'){ if(texto[i+1]==='"'){campo+='"';i++;} else enC=false; } else campo+=c; }
+    else { if(c==='"') enC=true; else if(c===','){fila.push(campo);campo="";}
+      else if(c==='\n'){fila.push(campo);filas.push(fila);fila=[];campo="";} else campo+=c; }
   }
-  if(campo.length>0 || fila.length>0){ fila.push(campo); filas.push(fila); }
+  if(campo.length>0||fila.length>0){fila.push(campo);filas.push(fila);}
   return filas;
 }
-
-function construirPruebas(filas){
+function construir(filas){
   if(!filas.length) return [];
-  const cab = filas[0].map(h=>normal(h.trim()));
-  const iN = cab.indexOf('nombre');
-  const iC = cab.indexOf('codigo');
-  const iS = cab.indexOf('sinonimos');
-  const iM = cab.indexOf('muestra');
-  const iNo = cab.indexOf('nota');
-  const out = [];
+  const cab=filas[0].map(h=>normal(h.trim()));
+  const iN=cab.indexOf('nombre'),iC=cab.indexOf('codigo'),iS=cab.indexOf('sinonimos'),iM=cab.indexOf('muestra'),iNo=cab.indexOf('nota');
+  const out=[];
   for(let r=1;r<filas.length;r++){
-    const f = filas[r];
-    if(!f || f.every(x=>!x || !x.trim())) continue;
-    const nombre = (iN>=0 ? f[iN] : "").trim();
-    if(!nombre) continue;
-    const sinRaw = (iS>=0 ? f[iS] : "") || "";
-    const sinonimos = sinRaw.split(/[;|]/).map(s=>s.trim()).filter(Boolean);
-    out.push({
-      nombre,
-      codigo: (iC>=0 ? f[iC] : "").trim(),
-      sinonimos,
-      muestra: (iM>=0 ? f[iM] : "").trim(),
-      nota: (iNo>=0 ? f[iNo] : "").trim()
-    });
+    const f=filas[r]; if(!f||f.every(x=>!x||!x.trim())) continue;
+    const nombre=(iN>=0?f[iN]:"").trim(); if(!nombre) continue;
+    const sin=((iS>=0?f[iS]:"")||"").split(/[;|]/).map(s=>s.trim()).filter(Boolean);
+    out.push({nombre, codigo:(iC>=0?f[iC]:"").trim(), sinonimos:sin,
+      muestra:(iM>=0?f[iM]:"").trim(), nota:(iNo>=0?f[iNo]:"").trim()});
   }
   return out;
 }
 
-function iconoMuestra(){ return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6.5L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 9.5V3"/></svg>'; }
-function iconoNota(){ return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>'; }
+function icMuestra(){ return '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6.5L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 9.5V3"/></svg>'; }
+function icNota(){ return '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>'; }
 
 function tarjeta(p){
-  const chips = (p.sinonimos||[]).map(s=>'<span class="chip">'+escapar(s)+'</span>').join('');
-  const bloqueChips = chips ? '<div class="etq">También se escribe como:</div><div class="chips">'+chips+'</div>' : '';
-  const bloqueMuestra = p.muestra ? '<div class="meta">'+iconoMuestra()+'<span>'+escapar(p.muestra)+'</span></div>' : '';
-  const bloqueNota = p.nota ? '<div class="nota">'+iconoNota()+'<span>'+escapar(p.nota)+'</span></div>' : '';
-  const codigo = p.codigo ? '<span class="codigo">'+escapar(p.codigo)+'</span>' : '';
-  return '<div class="tarjeta"><div class="fila-top"><span class="nombre">'+escapar(p.nombre)+'</span>'+codigo+'</div>'+bloqueChips+bloqueMuestra+bloqueNota+'</div>';
+  const chips=(p.sinonimos||[]).map(s=>'<span class="chip">'+escapar(s)+'</span>').join('');
+  const bChips=chips?'<div class="etq">También se escribe como:</div><div class="chips">'+chips+'</div>':'';
+  const bMuestra=p.muestra?'<div class="meta">'+icMuestra()+'<span>'+escapar(p.muestra)+'</span></div>':'';
+  const bNota=p.nota?'<div class="nota">'+icNota()+'<span>'+escapar(p.nota)+'</span></div>':'';
+  const cod=p.codigo?'<span class="codigo">'+escapar(p.codigo)+'</span>':'';
+  return '<div class="tarjeta"><div class="fila-top"><span class="nombre">'+escapar(p.nombre)+'</span>'+cod+'</div>'+bChips+bMuestra+bNota+'</div>';
 }
-
-function coincide(p, term){
-  if(!term) return true;
-  if(normal(p.nombre).includes(term)) return true;
-  if(normal(p.codigo).includes(term)) return true;
-  return (p.sinonimos||[]).some(s=>normal(s).includes(term));
+function coincide(p,t){
+  if(!t) return true;
+  if(normal(p.nombre).includes(t)) return true;
+  if(normal(p.codigo).includes(t)) return true;
+  return (p.sinonimos||[]).some(s=>normal(s).includes(t));
 }
-
 function render(){
-  const term = normal(q.value.trim());
-  const res = PRUEBAS.filter(p=>coincide(p,term)).sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
-  if(res.length===0){
-    lista.innerHTML=''; vacio.style.display='block'; conteo.textContent=''; return;
-  }
+  const t=normal(q.value.trim());
+  const res=PRUEBAS.filter(p=>coincide(p,t)).sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
+  if(res.length===0){ lista.innerHTML=''; vacio.style.display='block'; conteo.textContent=''; return; }
   vacio.style.display='none';
-  conteo.textContent = res.length + (res.length===1?' prueba':' pruebas') + (term ? ' encontradas' : ' en el catálogo');
-  lista.innerHTML = res.map(tarjeta).join('');
+  conteo.textContent=res.length+(res.length===1?' prueba':' pruebas')+(t?' encontradas':' en el catálogo');
+  lista.innerHTML=res.map(tarjeta).join('');
 }
+function activar(){ q.disabled=false; q.placeholder="Ej.: biometría, protrombina, tiroides…"; aviso.style.display='none'; render(); q.focus(); }
+function cargar(txt){ PRUEBAS=construir(parseCSV(txt)); if(PRUEBAS.length) activar(); else mostrarAviso(); }
+function mostrarAviso(){ aviso.style.display='block'; q.placeholder="Seleccione pruebas.csv para comenzar"; }
 
-function activar(){
-  q.disabled = false;
-  q.placeholder = "Ej.: biometría, protrombina, tiroides…";
-  aviso.style.display = 'none';
-  render();
-  q.focus();
-}
-
-function cargarTexto(texto){
-  PRUEBAS = construirPruebas(parseCSV(texto));
-  if(PRUEBAS.length){ activar(); }
-  else { mostrarAviso(); }
-}
-
-function mostrarAviso(){
-  aviso.style.display='block';
-  q.placeholder = "Seleccione pruebas.csv para comenzar";
-}
-
-/* Intento de carga automática del CSV que está junto al HTML */
-fetch(NOMBRE_CSV)
-  .then(r=>{ if(!r.ok) throw new Error('no'); return r.text(); })
-  .then(t=>cargarTexto(t))
-  .catch(()=>mostrarAviso());
-
-/* Respaldo: cargar el CSV manualmente */
-btnFile.addEventListener('click', ()=>fileInput.click());
-fileInput.addEventListener('change', e=>{
-  const f = e.target.files[0];
-  if(!f) return;
-  const lector = new FileReader();
-  lector.onload = ev=>cargarTexto(ev.target.result);
-  lector.readAsText(f, 'UTF-8');
-});
-
-q.addEventListener('input', render);
+fetch(NOMBRE_CSV).then(r=>{if(!r.ok)throw 0;return r.text();}).then(cargar).catch(mostrarAviso);
+btnFile.addEventListener('click',()=>fileInput.click());
+fileInput.addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const l=new FileReader();l.onload=ev=>cargar(ev.target.result);l.readAsText(f,'UTF-8');});
+q.addEventListener('input',render);
 </script>
 </body>
 </html>
