@@ -29,11 +29,13 @@
     line-height:1.5;
     padding:26px 18px 60px;
   }
-  /* burbujas decorativas de fondo */
-  .deco{position:fixed;border-radius:50%;z-index:0;opacity:.5;pointer-events:none}
-  .d1{width:150px;height:150px;background:var(--amarillo-suave);top:-40px;right:-30px}
-  .d2{width:110px;height:110px;background:var(--coral-suave);top:120px;left:-50px}
-  .d3{width:90px;height:90px;background:var(--menta-suave);bottom:40px;right:-20px}
+  /* burbujas decorativas de fondo, con color pleno al estilo del afiche */
+  .deco{position:fixed;border-radius:50%;z-index:0;opacity:.85;pointer-events:none}
+  .d1{width:170px;height:170px;background:var(--amarillo);top:-55px;right:-45px}
+  .d2{width:130px;height:130px;background:var(--coral);top:90px;left:-60px}
+  .d3{width:110px;height:110px;background:var(--menta);bottom:60px;right:-35px}
+  .d4{width:95px;height:95px;background:var(--azul);bottom:-30px;left:-30px}
+  .d5{width:70px;height:70px;background:var(--amarillo);bottom:200px;left:-25px;opacity:.7}
 
   .wrap{max-width:620px;margin:0 auto;position:relative;z-index:1}
 
@@ -118,6 +120,8 @@
 <div class="deco d1"></div>
 <div class="deco d2"></div>
 <div class="deco d3"></div>
+<div class="deco d4"></div>
+<div class="deco d5"></div>
 
 <div class="wrap">
   <header>
